@@ -1,0 +1,19 @@
+using System;
+using System.Globalization;
+using Avalonia.Data.Converters;
+using NexNux.Legacy.Models;
+
+namespace NexNux.Legacy.Converters;
+
+public class IsGameTypeNotGeneric : IValueConverter
+{
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value is not GameType.Generic;
+    }
+
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

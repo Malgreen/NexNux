@@ -1,6 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexNux", "NexNux\NexNux.csproj", "{ED3268D5-49C5-42EC-AF0F-92F296071DBB}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexNux.Legacy", "NexNux.Legacy\NexNux.Legacy.csproj", "{ED3268D5-49C5-42EC-AF0F-92F296071DBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexNux.Core", "NexNux.Core\NexNux.Core.csproj", "{80C340E1-F031-4B9B-AC1A-44D04BA489ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NexNux.Deployment", "NexNux.Deployment\NexNux.Deployment.csproj", "{72021E80-9358-4688-9851-56BA9246D01F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NexNux.App", "NexNux.App\NexNux.App.csproj", "{9920626F-DBF3-4F45-9E59-30DF77C23078}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +21,20 @@ Global
 		{ED3268D5-49C5-42EC-AF0F-92F296071DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED3268D5-49C5-42EC-AF0F-92F296071DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED3268D5-49C5-42EC-AF0F-92F296071DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80C340E1-F031-4B9B-AC1A-44D04BA489ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80C340E1-F031-4B9B-AC1A-44D04BA489ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80C340E1-F031-4B9B-AC1A-44D04BA489ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80C340E1-F031-4B9B-AC1A-44D04BA489ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72021E80-9358-4688-9851-56BA9246D01F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72021E80-9358-4688-9851-56BA9246D01F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72021E80-9358-4688-9851-56BA9246D01F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72021E80-9358-4688-9851-56BA9246D01F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9920626F-DBF3-4F45-9E59-30DF77C23078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9920626F-DBF3-4F45-9E59-30DF77C23078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9920626F-DBF3-4F45-9E59-30DF77C23078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9920626F-DBF3-4F45-9E59-30DF77C23078}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

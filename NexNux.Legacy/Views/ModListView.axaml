@@ -1,0 +1,104 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:NexNux.Legacy.ViewModels;assembly=NexNux.Legacy"
+             xmlns:material="using:Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="670"
+             x:Class="NexNux.Legacy.Views.ModListView"
+             x:DataType="vm:ModListViewModel">
+    <Design.DataContext>
+        <vm:ModListViewModel />
+    </Design.DataContext>
+
+    <DockPanel>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="62" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    CornerRadius="3"
+                    BorderBrush="{DynamicResource SystemControlPageBackgroundChromeLowBrush}"
+                    BorderThickness="2">
+                <Canvas Name="GridModsCanvas" Width="{Binding $parent[Border].Bounds.Width}"
+                        Height="{Binding $parent[Border].Bounds.Height}">
+                    <DataGrid Name="GridMods"
+                              Background="Transparent"
+                              ItemsSource="{Binding VisibleMods}"
+                              AutoGenerateColumns="False"
+                              DragDrop.AllowDrop="True"
+                              CanUserSortColumns="False"
+                              CanUserReorderColumns="False"
+                              SelectedItem="{Binding SelectedMod, Mode=TwoWay}"
+                              SelectionMode="Single"
+                              Width="{Binding $parent[Border].Bounds.Width}"
+                              Height="{Binding $parent[Border].Bounds.Height}">
+                        <DataGrid.Styles>
+                            <Style Selector="DataGrid /template/ Rectangle#PART_ColumnHeadersAndRowsSeparator">
+                                <Setter Property="MinHeight" Value="2" />
+                                <Setter Property="Stroke"
+                                        Value="{DynamicResource SystemControlPageBackgroundChromeLowBrush}" />
+                                <Setter Property="StrokeThickness" Value="2" />
+                            </Style>
+                            <Style Selector="DataGridColumnHeader">
+                                <Setter Property="IsHitTestVisible" Value="False" />
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="DragDrop.AllowDrop" Value="False" />
+                            </Style>
+                            <Style Selector="DataGridColumnHeader TextBlock">
+                                <Setter Property="FontSize" Value="12" />
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="ClipToBounds" Value="False" />
+                            </Style>
+                            <Style Selector="DataGridColumnHeader /template/ Rectangle#VerticalSeparator">
+                                <Setter Property="MinWidth" Value="2" />
+                                <Setter Property="Margin" Value="0,-1,0,0" />
+                                <Setter Property="Stroke"
+                                        Value="{DynamicResource SystemControlPageBackgroundChromeLowBrush}" />
+                                <Setter Property="StrokeThickness" Value="2" />
+                            </Style>
+                            <Style Selector="DataGridCell:current /template/ Grid#FocusVisual">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                        </DataGrid.Styles>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Order" Binding="{Binding Index}" Width="1*"
+                                                CanUserResize="False" IsReadOnly="True" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding ModName}" Width="3*"
+                                                CanUserResize="True" IsReadOnly="True" />
+                            <DataGridTextColumn Header="Size (mb)" Binding="{Binding FileSize}" Width="2*"
+                                                CanUserResize="True" IsReadOnly="True" />
+                            <!-- The next column is much the same as a CheckBoxColumn, but it doesn't need to be double clicked to be changed -->
+                            <!-- The checkbox is cut off/clipped on the left side. The current (hacky) workaround is to not set it to clip to bounds. -->
+                            <DataGridTemplateColumn Header="Enabled" Width="1*" CanUserResize="False">
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Canvas>
+            </Border>
+
+            <Border CornerRadius="3" Grid.Column="1">
+                <StackPanel Spacing="10" Margin="10,0,0,0">
+
+                    <Button Command="{Binding InstallModCommand}"
+                            Background="{DynamicResource NotificationCardSuccessBackgroundBrush}"
+                            Padding="10">
+                        <material:MaterialIcon Kind="FilePlus" Height="30" Width="30" />
+                    </Button>
+
+                    <Button Command="{Binding UninstallModCommand}"
+                            IsEnabled="{Binding SelectedMod, Converter={x:Static ObjectConverters.IsNotNull}}"
+                            Background="{DynamicResource NotificationCardErrorBackgroundBrush}"
+                            Padding="10">
+                        <material:MaterialIcon Kind="FileMinus" Height="30" Width="30" />
+                    </Button>
+
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </DockPanel>
+</UserControl>

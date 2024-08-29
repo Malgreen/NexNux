@@ -1,0 +1,123 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:material="using:Material.Icons.Avalonia"
+        xmlns:vm="clr-namespace:NexNux.Legacy.ViewModels;assembly=NexNux.Legacy"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="NexNux.Legacy.Views.HomeView"
+        x:DataType="vm:HomeViewModel"
+        Title="{Binding CurrentTitle}"
+        Icon="/Assets/NexNux.ico">
+    <Design.DataContext>
+        <vm:HomeViewModel />
+    </Design.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <NativeMenu.Menu>
+            <NativeMenu>
+                <NativeMenuItem Header="_File" />
+            </NativeMenu>
+        </NativeMenu.Menu>
+
+        <TabControl Name="HomeTabs"
+                    Padding="0"
+                    Grid.Row="1"
+                    TabStripPlacement="Left"
+                    ItemsSource="{Binding TabItems}">
+
+            <TabControl.Styles>
+
+                <Style Selector="TabControl WrapPanel">
+                    <Setter Property="Background" Value="{DynamicResource SystemControlPageBackgroundChromeLowBrush}" />
+                </Style>
+                <Style Selector="TabControl Border">
+                    <Setter Property="Margin" Value="0,0,0,0" />
+                </Style>
+                <Style Selector="TabItem:selected /template/ Border#PART_SelectedPipe">
+                    <Setter Property="IsVisible" Value="False" />
+                </Style>
+                <Style Selector="TabItem">
+                    <Setter Property="Padding" Value="0,0,10,0" />
+                </Style>
+                <Style Selector="TabItem > Border[Tag=PART_TabItemBorder]">
+                    <Setter Property="CornerRadius" Value="4" />
+                    <Setter Property="Padding" Value="8,4" />
+                </Style>
+                <Style Selector="TabItem:pointerover > Border[Tag=PART_TabItemBorder]">
+                    <Setter Property="Background" Value="{DynamicResource ButtonBackgroundPointerOver}" />
+                </Style>
+                <Style Selector="TabItem:selected > Border[Tag=PART_TabItemBorder]">
+                    <Setter Property="Background" Value="{DynamicResource TreeViewItemBackgroundSelected}" />
+                </Style>
+
+            </TabControl.Styles>
+
+            <TabControl.ItemTemplate>
+                <DataTemplate>
+                    <Border Tag="PART_TabItemBorder">
+                        <StackPanel Orientation="Horizontal">
+                            <material:MaterialIcon Kind="{Binding Icon}" Margin="0,0,6,0" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding Header}" FontWeight="Medium" FontSize="18"
+                                       VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </TabControl.ItemTemplate>
+
+            <TabControl.ContentTemplate>
+                <DataTemplate>
+                    <UserControl Content="{Binding ContentControl}" />
+                </DataTemplate>
+            </TabControl.ContentTemplate>
+
+        </TabControl>
+
+        <Panel Grid.Row="0"
+               Background="{DynamicResource SystemControlPageBackgroundChromeLowBrush}">
+
+            <Border HorizontalAlignment="Left" VerticalAlignment="Center" Padding="10">
+                <TextBlock Text="{Binding CurrentGame}" FontWeight="Black" FontSize="22" />
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+
+                <Button Command="{Binding DeployModsCommand}" IsEnabled="{Binding !IsDeploying}" Width="100">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <material:MaterialIcon Kind="ContentSave" Margin="0,0,8,0" />
+                        <TextBlock Text="Deploy" FontSize="14" FontWeight="Bold" />
+                    </StackPanel>
+                </Button>
+
+                <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Spacing="8">
+                        <ProgressBar Value="{Binding DeploymentProgress}"
+                                     Maximum="{Binding DeploymentTotal}"
+                                     HorizontalAlignment="Center" />
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            <material:MaterialIcon Kind="{Binding DeploymentStatusIcon}" Margin="8, 0" />
+                            <TextBlock Text="{Binding DeploymentStatus}"
+                                       FontWeight="Medium" />
+                            <material:MaterialIcon Kind="{Binding DeploymentStatusIcon}" Margin="8, 0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Button Command="{Binding ClearModsCommand}" IsEnabled="{Binding !IsDeploying}" Width="100">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Clear" FontSize="14" FontWeight="Bold" />
+                        <material:MaterialIcon Kind="Restore" Margin="8,0,0,0" />
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Panel>
+    </Grid>
+</Window>
